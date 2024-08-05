@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # DA-2: Degree-Accumulated Data Augmentation on Point Clouds with Curriculum Dynamic Threshold Selection
 
 ## Abstract
@@ -48,9 +47,8 @@ The directory structure should be:
             |--- training_objectdataset_augmentedrot_scale75.h5
             |--- test_objectdataset_augmentedrot_scale75.h5
 ```
-```
+
 ## Get Started
-### Command
 ```
 CUDA_VISIBLE_DEVICES=0 python examples/classification/main.py --cfg cfgs/scanobjectnn/da-2/pointnext.yaml
 ```
