@@ -1,5 +1,5 @@
 <<<<<<< HEAD
-# $\rm{DA}^2$: Degree-Accumulated Data Augmentation on Point Clouds with Curriculum Dynamic Threshold Selection
+# DA-2: Degree-Accumulated Data Augmentation on Point Clouds with Curriculum Dynamic Threshold Selection
 
 ## Abstract
 Conventional point cloud data augmentation methods typically employ offline transformations with predefined, randomly applied transformations. This randomness may lead to suboptimal training samples that are not suitable for the current training stage. Additionally, the predefined parameter range restricts the exploration space of augmentation limiting the diversity of samples. This paper introduces Degree-Accumulated Data Augmentation ($\rm{DA}^2$), a novel approach that accumulates augmentations to expand the exploration space beyond predefined limits. We utilize a teacher-guided auto-augmenter to prevent the generation of excessively distorted or unrecognizable samples. This method aims to generate challenging yet suitable samples, progressively increasing the difficulty to enhance the model's robustness. Additionally, according to a student model's ability, we propose Curriculum Dynamic Threshold Selection (CDTS) to filter overly challenging samples, allowing the model to start with high-quality objects and gradually handle more complex ones as model stability improves. Our experiments demonstrate that this framework significantly enhances accuracy across various 3D point cloud classifiers.
@@ -50,6 +50,7 @@ The directory structure should be:
 ```
 ```
 ## Get Started
+### Command
 ```
 CUDA_VISIBLE_DEVICES=0 python examples/classification/main.py --cfg cfgs/scanobjectnn/da-2/pointnext.yaml
 ```
