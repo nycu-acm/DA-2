@@ -1,18 +1,17 @@
 <<<<<<< HEAD
-# AdaptPoint: Sample-adaptive Augmentation for Point Cloud Recognition Against Real-world Corruptions [ICCV 2023]
-Official implementation of [Sample-adaptive Augmentation for Point Cloud Recognition Against Real-world Corruptions](https://arxiv.org/abs/2309.10431).
+# DA^2: Degree-Accumulated Data Augmentation on Point Clouds with Curriculum Dynamic Threshold Selection
 
-The paper has been accepted by **ICCV 2023**.
+## Abstract
+Conventional point cloud data augmentation methods typically employ offline transformations with predefined, randomly applied transformations. This randomness may lead to suboptimal training samples that are not suitable for the current training stage. Additionally, the predefined parameter range restricts the exploration space of augmentation limiting the diversity of samples. This paper introduces Degree-Accumulated Data Augmentation ($\rm{DA}^2$), a novel approach that accumulates augmentations to expand the exploration space beyond predefined limits. We utilize a teacher-guided auto-augmenter to prevent the generation of excessively distorted or unrecognizable samples. This method aims to generate challenging yet suitable samples, progressively increasing the difficulty to enhance the model's robustness. Additionally, according to a student model's ability, we propose Curriculum Dynamic Threshold Selection (CDTS) to filter overly challenging samples, allowing the model to start with high-quality objects and gradually handle more complex ones as model stability improves. Our experiments demonstrate that this framework significantly enhances accuracy across various 3D point cloud classifiers.
 
-## Introduction
-Robust 3D perception under corruption has become an essential task for the realm of 3D vision. While current data augmentation techniques usually perform random transformations on all point cloud objects in an offline way and ignore the structure of the samples, resulting in over-or-under enhancement. In this work, we propose an alternative to make sample-adaptive transformations based on the structure of the sample to cope with potential corruption via an auto-augmentation framework, named as AdaptPoint.  Specially, we leverage an  imitator, consisting of a Deformation Controller and a Mask Controller, respectively in charge of predicting deformation parameters and producing a per-point mask, based on the intrinsic structural information of the input point cloud, and then conduct corruption simulations on top. Then a discriminator is utilized to prevent the generation of excessive corruption that deviates from the original data distribution. In addition, a perception-guidance feedback mechanism is incorporated to guide the generation of samples with appropriate difficulty level. Furthermore, to address the paucity of real-world corrupted point cloud, we also introduce a new dataset ScanObjectNN-C. Experiments show that our method achieves state-of-the-art results on multiple corruption benchmarks including ModelNet-C, our ScanObjectNN-C, and ShapeNet-C.
-
+## Architecture
 <div align="center">
-  <img src="./figs/pipeline.png"/>
+  <img src="./figs/Architecture.png"/>
 </div>
 
+## Point Cloud Visualization
 <div align="center">
-  <img src="./figs/augmentor.png"/>
+  <img src="./figs/Visualization.png"/>
 </div>
 
 
@@ -66,38 +65,13 @@ The directory structure should be:
             |--- training_objectdataset_augmentedrot_scale75.h5
             |--- test_objectdataset_augmentedrot_scale75.h5
 ```
-#### ScanObjectNN-C
-Download [ScanObjectNN-C](https://drive.google.com/drive/folders/1CD_jOlXUqx_out7xoph_Ymz7EaHgElLW?usp=sharing) dataset and unzip the folder under `./data/ScanObjectNN_C`. The directory structure should be:
-```
-│data/
-|--- ...
-|--- ScanObjectNN_C/
-    |--- scanobjectnn_c/
-        |--- scale_0.h5
-        |--- ...
-        |--- scale_4.h5
 ```
 ## Get Started
-### ScanObjectNN-C
-
 ```
-CUDA_VISIBLE_DEVICES=0 python examples/classification/main.py --cfg cfgs/scanobjectnn/pointnext-s_adaptpoint_1.yaml
+CUDA_VISIBLE_DEVICES=0 python examples/classification/main.py --cfg cfgs/scanobjectnn/da-2/pointnext.yaml
 ```
 
 ## Acknowlegment
-This repo benefits from [ModelNet-C](https://github.com/jiawei-ren/ModelNet-C), [PointCloud-C](https://github.com/ldkong1205/PointCloud-C) and the excellent codebase [PointNext](https://github.com/guochengqian/PointNeXt). Thanks for their wonderful works. 
-
-We would like to thank Lingdong Kong and Jiawei Ren for their helpful discussions.
+This repo benefits from the excellent codebase [PointNext](https://github.com/guochengqian/PointNeXt). Thanks for their wonderful works. 
 
 
-## Citation
-```bash
-
-```
-
-## Contact
-If you have any question about this project, please feel free to contact jwang991020@gmail.com.
-=======
-# DA-2
-Degree-Accumulated Data Augmentation on Point Cloud with Curriculum Dynamic Threshold Selection
->>>>>>> d61972e6b19412414fcc8dfa04f22c80b2c4a116
