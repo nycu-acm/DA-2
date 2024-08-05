@@ -1,0 +1,12 @@
+Requirement already satisfied: referencing in /home/user/anaconda3/envs/teachaug_points/lib/python3.8/site-packages (0.30.2)
+Collecting referencing
+  Downloading referencing-0.31.1-py3-none-any.whl.metadata (2.7 kB)
+Requirement already satisfied: attrs>=22.2.0 in /home/user/anaconda3/envs/teachaug_points/lib/python3.8/site-packages (from referencing) (23.1.0)
+Requirement already satisfied: rpds-py>=0.7.0 in /home/user/anaconda3/envs/teachaug_points/lib/python3.8/site-packages (from referencing) (0.10.6)
+Downloading referencing-0.31.1-py3-none-any.whl (25 kB)
+Installing collected packages: referencing
+  Attempting uninstall: referencing
+    Found existing installation: referencing 0.30.2
+    Uninstalling referencing-0.30.2:
+      Successfully uninstalled referencing-0.30.2
+Successfully installed referencing-0.31.1

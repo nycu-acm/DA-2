@@ -1,0 +1,95 @@
+model:
+  NAME: BaseCls
+  encoder_args:
+    NAME: PointNextEncoder
+    blocks: [1, 1, 1, 1, 1, 1]
+    strides: [1, 2, 2, 2, 2, 1]
+    width: 32
+    in_channels: 4
+    sa_layers: 2
+    sa_use_res: True
+    radius: 0.15
+    radius_scaling: 1.5
+    nsample: 32
+    expansion: 4
+    aggr_args:
+      feature_type: 'dp_fj'
+      reduction: 'max'
+    group_args:
+      NAME: 'ballquery'
+      normalize_dp: True
+    conv_args:
+      order: conv-norm-act
+    act_args:
+      act: 'relu'
+    norm_args:
+      norm: 'bn'
+  cls_args:
+    NAME: ClsHead
+    num_classes: 15
+    mlps: [512, 256]
+    norm_args:
+      norm: 'bn1d'
+
+epochs: 300
+
+mode: dada
+
+datatransforms:
+  train: [PointsToTensor, PointCloudScaling, PointCloudCenterAndNormalize, PointCloudRotation]
+  vote: [PointCloudRotation]
+  val: [PointsToTensor, PointCloudCenterAndNormalize]
+  kwargs:
+    scale: [0.97, 1.03]
+    angle: [0.0, 1.0, 0.0]
+    gravity_dim: 1
+
+dada_augmenter:
+  NAME: DADA_Augmenter
+  w_num_anchor: 3
+  w_sigma: 0.5
+  w_R_range: 10
+  w_S_range: 3
+  w_T_range: 0.4
+
+optim_args:
+  lr_generator: 0.0001
+  b1: 0.5
+  b2: 0.999
+
+# teacher model
+student_criterion_args:
+  NAME: SmoothCrossEntropy
+  label_smoothing: 0.3
+
+teacher_criterion_args:
+  NAME: SmoothCrossEntropy
+  label_smoothing: 0.3
+
+criterion_args:
+  NAME: SmoothCrossEntropy
+  label_smoothing: 0.3
+
+loss_weight:
+  w_tea: 3
+  w_swd: 1
+  w_tea_stu: 1
+  w_gloss: 3
+
+ema_args:
+  ema_rate: 0.995
+  ema_warmup_epochs: 50
+
+threshold_start: 1.2
+threshold_decay_rate: 1.1
+lower_threshold: 0.8
+
+reset_count: 10
+
+pretrained_teacher:
+  use_pretrained: False
+  pretrained_teacher_path: None
+
+save_data: False
+use_DA2: True
+use_CDTS: True
